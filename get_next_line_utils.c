@@ -32,7 +32,6 @@ char  *ft_append(char *s1, char *s2)
     return (NULL);
   while (s1[j])
     result[i++] = s1[j++];
-  j = 0;
   ft_strcpy(result + i, s2);
   free(s1);
   free(s2);
