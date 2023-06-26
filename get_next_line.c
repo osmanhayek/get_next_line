@@ -1,5 +1,18 @@
 #include "get_next_line.h"
 
+void  ft_strcpy(char *s1, char *s2)
+{
+  size_t  i;
+
+  i = 0;
+  while (s2[i])
+  {
+    s1[i] = s2[i];
+    i++;
+  }
+  s1[i] = '\0';
+}
+
 void  create_res(char **res, int fd)
 {
   char    *buf;

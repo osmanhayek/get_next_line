@@ -18,5 +18,6 @@ char  *ft_append(char *s1, char *s2);
 size_t  founded_next_line(char *res);
 size_t  len_to_next_line(char *str);
 char  *find_line(char *res);
+void  ft_strcpy(char *s1, char *s2);
 
 #endif

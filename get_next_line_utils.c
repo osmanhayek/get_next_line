@@ -22,12 +22,7 @@ char  *ft_append(char *s1, char *s2)
     result = (char *)malloc(sizeof(char) * ft_strlen(s2) + 1);
     if (!result)
         return (NULL);
-    while (s2[i])
-      {
-        result[i] = s2[i];
-        i++;
-      }
-    result[i] = '\0';
+    ft_strcpy(result, s2);
     free(s2);
     return (result);
   }
@@ -38,9 +33,7 @@ char  *ft_append(char *s1, char *s2)
   while (s1[j])
     result[i++] = s1[j++];
   j = 0;
-  while (s2[j])
-    result[i++] = s2[j++];
-  result[i] = '\0';
+  ft_strcpy(result + i, s2);
   free(s1);
   free(s2);
   return (result);
