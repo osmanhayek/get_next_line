@@ -41,6 +41,7 @@ char  *clean_res(char *res)
   size_t  i;
   size_t  k;
 
+
   i = len_to_next_line(res);
   if (!res[i])
   {
@@ -64,7 +65,12 @@ char  *get_next_line(int fd)
   char        *line;
 
   if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+  {
+    if (res)
+      free(res);
+    res = NULL;
     return (NULL);
+  }
   create_res(&res, fd);
   if (!res)
     return (NULL);
