@@ -6,7 +6,7 @@
 /*   By: ohayek <ohayek@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:10:53 by ohayek            #+#    #+#             */
-/*   Updated: 2023/07/06 19:29:11 by ohayek           ###   ########.fr       */
+/*   Updated: 2023/07/06 19:41:52 by ohayek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ typedef struct s_list
 }t_list;
 
 void	ft_newlist(t_list **list, int fd);
-char	*ft_find_line(t_list *list);
-void	ft_clean(t_list **list);
-t_list	*ft_lst(t_list *list);
-char	*get_next_line(int fd);
-void	ft_dealloc(t_list **list, t_list *clean_node);
-size_t	ft_len_to_nl(t_list *list);
-int		ft_founded_nl(t_list *list);
 void	ft_append(t_list **list, char *buf);
 void	ft_strcpy(char *dest, const char *src);
+void	ft_clean(t_list **list);
+void	ft_dealloc(t_list **list, t_list *clean_node);
+char	*ft_find_line(t_list *list);
+char	*get_next_line(int fd);
+t_list	*ft_lst(t_list *list);
+size_t	ft_len_to_nl(t_list *list);
+int		ft_founded_nl(t_list *list);
 
 #endif
