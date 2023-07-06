@@ -6,7 +6,7 @@
 /*   By: ohayek <ohayek@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:10:53 by ohayek            #+#    #+#             */
-/*   Updated: 2023/07/05 16:38:06 by ohayek           ###   ########.fr       */
+/*   Updated: 2023/07/06 17:16:42 by ohayek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_BONUS_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10
+#  define BUFFER_SIZE 42
 # endif
 
 # define FD_MAX 257
@@ -32,5 +32,10 @@ void	ft_newlist(t_list **list, int fd);
 char	*ft_find_line(t_list *list);
 void	ft_clean(t_list **list);
 t_list	*ft_lst(t_list *list);
+char	*get_next_line(int fd);
+void	ft_dealloc(t_list **list, t_list *clean_node, char *buf);
+size_t	ft_len_to_nl(t_list *list);
+int		ft_founded_nl(t_list *list);
+void	ft_append(t_list **list, char *buf);
 
 #endif

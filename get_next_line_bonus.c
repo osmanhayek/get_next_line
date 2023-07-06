@@ -6,15 +6,60 @@
 /*   By: ohayek <ohayek@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:21:35 by ohayek            #+#    #+#             */
-/*   Updated: 2023/07/05 16:53:04 by ohayek           ###   ########.fr       */
+/*   Updated: 2023/07/06 18:01:25 by ohayek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
+void	ft_dealloc(t_list **list, t_list *clean_node, char *buf)
+{
+	t_list	*tmp;
+
+	if (NULL == *list)
+		return ;
+	while (*list)
+	{
+		tmp = (*list)->next;
+		free((*list)->buf);
+		free(*list);
+		*list = tmp;
+	}
+	*list = NULL;
+	if (clean_node->buf[0])
+		*list = clean_node;
+	else
+	{
+		free(buf);
+		free(clean_node);
+	}
+}
+
 void	ft_clean(t_list **list)
 {
-	
+	t_list	*new_list;
+	t_list	*last;
+	char	*new_buf;
+	size_t	i;
+	size_t	k;
+
+	new_buf = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
+	new_list = (t_list *)malloc(sizeof(t_list));
+	if (!new_list || !new_buf)
+		return ;
+	last = ft_lst(*list);
+	if (!last)
+		return ;
+	i = 0;
+	k = 0;
+	while (last->buf[i] && last->buf[i] != '\n')
+		i++;
+	while (last->buf[i] && last->buf[++i])
+		new_buf[k++] = last->buf[i];
+	new_buf[k] = '\0';
+	new_list->buf = new_buf;
+	new_list->next = NULL;
+	ft_dealloc(list, new_list, new_buf);
 }
 
 size_t	ft_len_to_nl(t_list *list)
@@ -29,7 +74,7 @@ size_t	ft_len_to_nl(t_list *list)
 		while (list->buf[j])
 		{
 			if (list->buf[j] == '\n')
-				return (i);
+				return (i + 1);
 			i++;
 			j++;
 		}
@@ -70,10 +115,24 @@ char	*ft_find_line(t_list *list)
 char	*get_next_line(int fd)
 {
 	static t_list	*list[FD_MAX] = {NULL};
+	t_list			*tmp;
 	char			*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0 || fd > FD_MAX)
+	{
+		if (fd > 0 && fd <= FD_MAX)
+		{
+			while (list[fd])
+			{
+				tmp = list[fd]->next;
+				free(list[fd]->buf);
+				free(list[fd]);
+				list[fd] = tmp;
+			}
+			list[fd] = NULL;
+		}
 		return (NULL);
+	}
 	ft_newlist(&list[fd], fd);
 	if (!list[fd])
 		return (NULL);

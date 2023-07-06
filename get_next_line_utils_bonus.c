@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ohayek <ohayek@student.42istanbul.com.t    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/06 18:02:57 by ohayek            #+#    #+#             */
+/*   Updated: 2023/07/06 18:02:58 by ohayek           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line_bonus.h"
 
 t_list	*ft_lst(t_list *list)
@@ -59,7 +71,7 @@ void	ft_newlist(t_list **list, int fd)
 	{
 		buf = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
 		if (!buf)
-			return (NULL);
+			return ;
 		read_tracker = read(fd, buf, BUFFER_SIZE);
 		if (!read_tracker)
 		{
