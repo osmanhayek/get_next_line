@@ -6,13 +6,13 @@
 /*   By: ohayek <ohayek@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:21:35 by ohayek            #+#    #+#             */
-/*   Updated: 2023/07/06 18:01:25 by ohayek           ###   ########.fr       */
+/*   Updated: 2023/07/06 19:34:09 by ohayek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-void	ft_dealloc(t_list **list, t_list *clean_node, char *buf)
+void	ft_dealloc(t_list **list, t_list *clean_node)
 {
 	t_list	*tmp;
 
@@ -21,7 +21,6 @@ void	ft_dealloc(t_list **list, t_list *clean_node, char *buf)
 	while (*list)
 	{
 		tmp = (*list)->next;
-		free((*list)->buf);
 		free(*list);
 		*list = tmp;
 	}
@@ -29,23 +28,19 @@ void	ft_dealloc(t_list **list, t_list *clean_node, char *buf)
 	if (clean_node->buf[0])
 		*list = clean_node;
 	else
-	{
-		free(buf);
 		free(clean_node);
-	}
 }
 
 void	ft_clean(t_list **list)
 {
 	t_list	*new_list;
 	t_list	*last;
-	char	*new_buf;
+	char	new_buf[BUFFER_SIZE + 1];
 	size_t	i;
 	size_t	k;
 
-	new_buf = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
 	new_list = (t_list *)malloc(sizeof(t_list));
-	if (!new_list || !new_buf)
+	if (!new_list)
 		return ;
 	last = ft_lst(*list);
 	if (!last)
@@ -57,9 +52,9 @@ void	ft_clean(t_list **list)
 	while (last->buf[i] && last->buf[++i])
 		new_buf[k++] = last->buf[i];
 	new_buf[k] = '\0';
-	new_list->buf = new_buf;
+	ft_strcpy(new_list->buf, new_buf);
 	new_list->next = NULL;
-	ft_dealloc(list, new_list, new_buf);
+	ft_dealloc(list, new_list);
 }
 
 size_t	ft_len_to_nl(t_list *list)
@@ -125,7 +120,6 @@ char	*get_next_line(int fd)
 			while (list[fd])
 			{
 				tmp = list[fd]->next;
-				free(list[fd]->buf);
 				free(list[fd]);
 				list[fd] = tmp;
 			}

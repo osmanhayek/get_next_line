@@ -6,11 +6,24 @@
 /*   By: ohayek <ohayek@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 18:02:57 by ohayek            #+#    #+#             */
-/*   Updated: 2023/07/06 18:02:58 by ohayek           ###   ########.fr       */
+/*   Updated: 2023/07/06 19:34:23 by ohayek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
+
+void	ft_strcpy(char *dest, const char *src)
+{
+	size_t	i;
+
+	i = 0;
+	while (src[i])
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+}
 
 t_list	*ft_lst(t_list *list)
 {
@@ -50,34 +63,28 @@ void	ft_append(t_list **list, char *buf)
 		*list = (t_list *)malloc(sizeof(t_list));
 		if (!*list)
 			return ;
-		(*list)->buf = buf;
+		ft_strcpy((*list)->buf, buf);
 		(*list)->next = NULL;
 		return ;
 	}
 	new_node = (t_list *)malloc(sizeof(t_list));
 	if (!new_node)
 		return ;
-	new_node->buf = buf;
+	ft_strcpy(new_node->buf, buf);
 	new_node->next = NULL;
 	last->next = new_node;
 }
 
 void	ft_newlist(t_list **list, int fd)
 {
-	char	*buf;
+	char	buf[BUFFER_SIZE + 1];
 	size_t	read_tracker;
 
 	while (!ft_founded_nl(*list))
 	{
-		buf = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
-		if (!buf)
-			return ;
 		read_tracker = read(fd, buf, BUFFER_SIZE);
 		if (!read_tracker)
-		{
-			free(buf);
 			return ;
-		}
 		buf[read_tracker] = '\0';
 		ft_append(list, buf);
 	}
