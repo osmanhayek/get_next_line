@@ -66,43 +66,43 @@ size_t	founded_next_line(char *res)
 	return (0);
 }
 
-size_t  len_to_next_line(char *str)
+size_t	len_to_next_line(char *str)
 {
-  size_t  i;
+	size_t	i;
 
-  i = 0;
-  while (str[i])
-    {
-      if (str[i] == '\n')
-        return (i + 1);
-      i++;
-    }
-  return (i);
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\n')
+			return (i + 1);
+		i++;
+	}
+	return (i);
 }
 
-char  *find_line(char *res)
+char	*find_line(char *res)
 {
-  char    *line;
-  size_t  size;
-  size_t  i;
+	char	*line;
+	size_t	size;
+	size_t	i;
 
-  if (!res)
-      return (NULL);
-  size = len_to_next_line(res);
-  line = (char *)malloc(sizeof(char) * size + 1);
-  if (!line)
-      return (NULL);
-  i = 0;
-  while (res[i])
-    {
-      line[i] = res[i];
-      if (res[i] == '\n')
-      {
-        line[++i] = '\0';
-        return (line);
-      }
-      i++;
-    }
-  line[i] = '\0';
-  return (line);
+	if (!res)
+		return (NULL);
+	size = len_to_next_line(res);
+	line = (char *)malloc(sizeof(char) * size + 1);
+	if (!line)
+		return (NULL);
+	i = 0;
+	while (res[i])
+	{
+		line[i] = res[i];
+		if (res[i] == '\n')
+		{
+			line[++i] = '\0';
+			return (line);
+		}
+	i++;
+	}
+	line[i] = '\0';
+	return (line);
 }
